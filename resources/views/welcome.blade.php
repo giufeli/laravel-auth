@@ -32,7 +32,20 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel-auth Post
+                    Benvenuto!
+                </div>
+                <div>
+                    Per visualizzare i post accedi al sito
+                    @auth
+                        <a href="{{ route('admin.dashboard') }}">Home</a>
+
+                    @else
+                        <a href="{{ route('login') }}">Login</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">Register</a>
+                    @endif
+                    @endauth
                 </div>
             </div>
         </div>

@@ -2,13 +2,11 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-12 text-center">
-                <div class="btn btn-success">
-                    <a href="/comics/create" class="text-white">Aggiungi post ( IN FASE DI SVILUPPO )</a>
-                </div>
+        @if (session('success_delete'))
+            <div class="alert alert-warning" role="alert">
+                Il post con ID {{(session('success_delete')->id)}} è stato eliminato
             </div>
-        </div>
+        @endif
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -26,8 +24,19 @@
                         <td>{{ $post->title }}</td>
 
                         <td>
-                            <a href="{{ route ('admin.posts.show', ['post' => $post])}}" class="btn btn-primary">Visita</a>
+                            <a href="{{ route ('admin.posts.show', ['post' => $post])}}" class="btn btn-primary text-white">Visita</a>
                         </td>
+                        <td>
+                            <a href="{{ route ('admin.posts.edit', ['post' => $post])}}" class="btn btn-warning">Edita</a>
+                        </td>
+                        <td>
+                            <form action="{{ route ('admin.posts.destroy', ['post' => $post])}}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-danger btn-delete-me">Elimina</button>
+                            </form>
+                        </td>
+
                     </tr>
                 @endforeach
             </tbody>

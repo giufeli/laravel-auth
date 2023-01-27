@@ -74,9 +74,13 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('admin.posts.index') }}">
-                                        List posts
+                                        Indice
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('admin.posts.create') }}">
+                                        Crea
                                     </a>
                                 </div>
+
                             </li>
                         @endguest
                     </ul>

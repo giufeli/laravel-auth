@@ -1,0 +1,49 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <form action="{{ route('admin.posts.update', ['post' => $post]) }}" method="post">
+            @method('PUT')
+            @csrf
+            <form class="row g-3 needs-validation" novalidate>
+                <div class="col-md-4">
+                  <label for="title" class="form-label">Titolo</label>
+                  <input type="text" class="form-control" id="title" name="title" value="{{ old ('title', $post->title)}}">
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="slug" class="form-label">Slug</label>
+                    <input type="text" class="form-control" id="slug" name="slug" value="{{ old ('slug', $post->slug)}}">
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="image" class="form-label">URL immagine</label>
+                    <input type="text" class="form-control" id="image" name="image" value="{{ old ('image', $post->image)}}">
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="content" class="form-label">Contenuto</label>
+                   <textarea class="form-control" id="content" name="content">{{ old ('content', $post->content)}}</textarea>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="excerpt" class="form-label">Riassunto</label>
+                   <input type="text" class="form-control" id="excerpt" name="excerpt" value="{{ old ('excerpt', $post->excerpt)}}">
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+                <div class="col-12">
+                  <button class="btn btn-primary" type="submit">Modifica</button>
+                </div>
+              </form>
+        </form>
+    </div>
