@@ -1,17 +1,23 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
-use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+
+
 
 class PostController extends Controller
 {
 
     private $validations = [
         [
-            'slug' => 'required|string|max:100|unique:posts',
+            'slug' => [
+                'required',
+                'string',
+                'max:100',
+            ],
             'title' => 'required|string|max:100|',
             'image' => 'string|max:100|',
             'content' => 'string',
@@ -53,6 +59,7 @@ class PostController extends Controller
     public function store(Request $request, Post $post)
     {
         // validation
+        //$this->validations['slug'][] = 'unique:posts';
         $request->validate($this->validations);
 
         $data = $request->all();
@@ -102,7 +109,22 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $request->validate($this->validations);
+
+        //$this->validations['slug'][] = Rule::unique('posts')->ignore($post);
+
+        $request->validate([
+            'slug'      => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('posts')->ignore($post),
+            ],
+            'title'     => 'required|string|max:100',
+            'image'     => 'url|max:100',
+            'content'   => 'string',
+            'excerpt'   => 'string',
+        ]);
+
 
         $data = $request->all();
 
